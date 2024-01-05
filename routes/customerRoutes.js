@@ -1,48 +1,10 @@
 // routes/customerRoutes.js
 const express = require('express');
 const router = express.Router();
-const Customer = require('../models/Customer');
 const Order = require('../models/Order');
 const Bank = require('../models/Bank');
 
-// Route for customer registration
-router.post('/register', async (req, res) => {
-  try {
-    const { userId, email, password } = req.body;
-    const customer = new Customer({ userId, email, password });
-    await customer.save();
-    res.status(201).json(customer);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
 
-// Route for customer login
-router.post('/login', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const customer = await Customer.findOne({ email, password });
-    if (!customer) {
-      res.status(404).json({ error: 'Customer not found' });
-    } else {
-      res.status(200).json(customer);
-    }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Route to add items to the cart
-router.post('/add-to-cart', async (req, res) => {
-  try {
-    // Implement logic to add items to the cart
-    // Example: Get userId from the request and update the user's cart
-    // You'll need a Cart model and a User model with a cart field
-    res.status(200).json({ message: 'Item added to the cart successfully' });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
 
 // Route to choose in-person or takeaway, select preferences, and create an order
 router.post('/choose-options', async (req, res) => {

@@ -1,19 +1,4 @@
-// // models/Order.js
-// const mongoose = require('mongoose');
 
-// const orderSchema = new mongoose.Schema({
-//   orderId: { type: Number, unique: true, default: 0 },
-//   customerId: { type: Number, required: true },
-//   items: { type: [String], required: true, validate: { validator: array => array.length > 0, message: 'Items cannot be empty' } },
-//   orderType: { type: Boolean, required: true },
-//   orderStatus: { type: Boolean, required: true },
-//   estimatedTime: { type: Date },
-// });
-
-// const Order = mongoose.model('Order', orderSchema);
-
-// module.exports = Order;
-// models/Order.js
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({

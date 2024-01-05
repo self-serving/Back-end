@@ -7,7 +7,7 @@ const MenuItem = require('../models/MenuItem');
 const Ingredient = require('../models/Ingredient');
 
 // Route to add an item to the cart
-router.post('/add-item', async (req, res) => {
+router.post('/add-to-cart', async (req, res) => {
   try {
     const { userId, itemId, quantity, ingredientPreference } = req.body;
 

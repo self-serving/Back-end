@@ -1,0 +1,57 @@
+### Signup
+POST http://localhost:3000/signup
+Content-Type: application/json
+
+{
+  "fullname": "admins",
+  "email": "myahdmfi@gmail.com",
+  "phone_number": "1234567890",
+  "password": "secretpassword"
+  
+  
+}
+
+### Login
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "myahdmfi@gmail.com",
+  "password": "secretpassword"
+}
+
+
+
+###Forget Password - Request Password Reset
+
+POST http://localhost:3000/forgot-password
+Content-Type: application/json
+
+{
+"email": "bisratmelak1@gmail.com"
+}
+
+
+###reset Password - Request Password Reset
+POST http://localhost:3000/api/reset-password
+Content-Type: application/json
+
+{
+  "token": "replace_with_reset_token_from_email",
+  "newPassword": "new_password"
+}
+
+
+###Get all ingredients
+GET http://localhost:3000/admin/ingredients
+
+### Add a menu item with selected ingredients
+POST http://localhost:3000/admin/add-menu-item
+Content-Type: application/json
+
+{
+  "name": "New Menu Item",
+  "price": 9.99,
+  "description": "Delicious dish",
+  "selectedIngredients": ["5febabc22b21f1a8cf8709a1", "5febabc22b21f1a8cf8709a2"]
+}

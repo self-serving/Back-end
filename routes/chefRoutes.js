@@ -1,23 +1,17 @@
 // routes/chefRoutes.js
 const express = require('express');
 const router = express.Router();
-const Chef = require('../models/Chef');
+const User = require('../models/user');
 const Order = require('../models/Order');
 
 // Route to view order details
-router.post('/view-order-detail', async (req, res) => {
+// Route to view order details
+router.get('/view-order-detail', async (req, res) => {
   try {
-    const { chefId, orderId } = req.body;
-
-    // Validate chefId (assuming it should be a unique identifier)
-    const chef = await Chef.findOne({ chefId });
-
-    if (!chef) {
-      return res.status(404).json({ error: 'Chef not found' });
-    }
+    const { userId, orderId } = req.query; // Assuming parameters are sent as query parameters
 
     // Fetch order details
-    const order = await Order.findOne({ _id: orderId, chefId });
+    const order = await Order.findOne({ _id: orderId, chefId: userId });
 
     if (!order) {
       return res.status(404).json({ error: 'Order not found' });
@@ -25,7 +19,7 @@ router.post('/view-order-detail', async (req, res) => {
 
     // Display order details
     const orderDetails = {
-      customerId: order.customerId,
+      customerId: order.userId,
       orderId: order._id,
       item: order.item,
       preference: order.preference,
@@ -42,18 +36,11 @@ router.post('/view-order-detail', async (req, res) => {
 // Route to provide estimated time
 router.post('/provide-estimated-time', async (req, res) => {
   try {
-    const { chefId, orderId, time } = req.body;
-
-    // Validate chefId (assuming it should be a unique identifier)
-    const chef = await Chef.findOne({ chefId });
-
-    if (!chef) {
-      return res.status(404).json({ error: 'Chef not found' });
-    }
+    const { userId, orderId, time } = req.body;
 
     // Update order with estimated time
     const updatedOrder = await Order.findOneAndUpdate(
-      { _id: orderId, chefId },
+      { _id: orderId, chefId: userId },
       { estimatedTime: time },
       { new: true }
     );
@@ -67,18 +54,11 @@ router.post('/provide-estimated-time', async (req, res) => {
 // Route to update order status
 router.post('/update-order-status', async (req, res) => {
   try {
-    const { chefId, orderId, orderStatus } = req.body;
-
-    // Validate chefId (assuming it should be a unique identifier)
-    const chef = await Chef.findOne({ chefId });
-
-    if (!chef) {
-      return res.status(404).json({ error: 'Chef not found' });
-    }
+    const { userId, orderId, orderStatus } = req.body;
 
     // Update order status
     const updatedOrder = await Order.findOneAndUpdate(
-      { _id: orderId, chefId },
+      { _id: orderId, chefId: userId },
       { orderStatus },
       { new: true }
     );
